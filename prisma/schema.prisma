@@ -21,7 +21,7 @@ model Product {
   volumeMilliliters Int?     @default(0)
   weightGrams       Int?     @default(0)
   alcoholContent    Float?   @default(0.0)
-  price             Int
+  price             Float
   stock             Int
   description       String?
   createdAt         DateTime @default(now())
