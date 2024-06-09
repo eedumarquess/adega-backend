@@ -14,8 +14,11 @@ const fakeProducts = [
     alcoholContent: 0.5, 
     price: 10, 
     stock: 10, 
+    user: 'Test User 1',
+    userId: 1,
     description: 'Test Description 1',
-    createdAt: new Date()
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   { 
     id: 2,
@@ -27,8 +30,11 @@ const fakeProducts = [
     alcoholContent: 0.5, 
     price: 10, 
     stock: 10, 
+    user: 'Test User 1',
+    userId: 1,
     description: 'Test Description 2',
-    createdAt: new Date()
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 ];
 
