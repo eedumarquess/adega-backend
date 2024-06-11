@@ -104,7 +104,8 @@ describe('ProductsService', () => {
       expect(response).toEqual(fakeProducts[0]);
       expect(prisma.product.findUnique).toHaveBeenCalledTimes(1);
       expect(prisma.product.findUnique).toHaveBeenCalledWith({
-        where: { id: 1 }
+        where: { id: 1 }, 
+        include: { user: true }
       });
     });
 
@@ -116,7 +117,8 @@ describe('ProductsService', () => {
       expect(response).toBeUndefined();
       expect(prisma.product.findUnique).toHaveBeenCalledTimes(1);
       expect(prisma.product.findUnique).toHaveBeenCalledWith({
-        where: { id: 99 }
+        where: { id: 99 },
+        include: { user: true }
       });
     });
   });
