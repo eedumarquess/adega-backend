@@ -2,15 +2,15 @@ import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
-import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter';
+import { PrismaClientExceptionFilter } from './filters/prisma-client-exception/prisma-client-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const { httpAdapter } = app.get(HttpAdapterHost);
-  
+
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const config = new DocumentBuilder()
     .setTitle('Adega API')

@@ -5,12 +5,10 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    private prisma: PrismaService
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-    return await this.prisma.user.create({ data: createUserDto })
+    return await this.prisma.user.create({ data: createUserDto });
   }
 
   async findAll() {
@@ -18,12 +16,13 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    return await this.prisma.user.findUnique({ where: { id } })
+    return await this.prisma.user.findUnique({ where: { id } });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return await this.prisma.user.update({ 
-      where: { id }, data: updateUserDto 
+    return await this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
     });
   }
 

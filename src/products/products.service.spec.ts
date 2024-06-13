@@ -4,38 +4,38 @@ import { PrismaService } from '../prisma/prisma.service';
 import { NotFoundException } from '@nestjs/common';
 
 const fakeProducts = [
-  { 
+  {
     id: 1,
-    name: 'Test Product 1', 
-    category: 'Test Category 1', 
-    brand: 'Test Brand 1', 
-    volumeMilliliters: 100, 
-    weightGrams: 0, 
-    alcoholContent: 0.5, 
-    price: 10, 
-    stock: 10, 
+    name: 'Test Product 1',
+    category: 'Test Category 1',
+    brand: 'Test Brand 1',
+    volumeMilliliters: 100,
+    weightGrams: 0,
+    alcoholContent: 0.5,
+    price: 10,
+    stock: 10,
     user: 'Test User 1',
     userId: 1,
     description: 'Test Description 1',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
-  { 
+  {
     id: 2,
-    name: 'Test Product 2', 
-    category: 'Test Category 2', 
-    brand: 'Test Brand 2', 
-    volumeMilliliters: 100, 
-    weightGrams: 0, 
-    alcoholContent: 0.5, 
-    price: 10, 
-    stock: 10, 
+    name: 'Test Product 2',
+    category: 'Test Category 2',
+    brand: 'Test Brand 2',
+    volumeMilliliters: 100,
+    weightGrams: 0,
+    alcoholContent: 0.5,
+    price: 10,
+    stock: 10,
     user: 'Test User 1',
     userId: 1,
     description: 'Test Description 2',
     createdAt: new Date(),
-    updatedAt: new Date()
-  }
+    updatedAt: new Date(),
+  },
 ];
 
 const prismaMock = {
@@ -45,12 +45,12 @@ const prismaMock = {
     findUnique: jest.fn().mockResolvedValue(fakeProducts[0]),
     update: jest.fn().mockResolvedValue(fakeProducts[0]),
     delete: jest.fn(),
-  }
+  },
 };
 
 describe('ProductsService', () => {
   let service: ProductsService;
-  let prisma: PrismaService
+  let prisma: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -58,8 +58,8 @@ describe('ProductsService', () => {
         ProductsService,
         {
           provide: PrismaService,
-          useValue: prismaMock
-        }
+          useValue: prismaMock,
+        },
       ],
     }).compile();
 
@@ -69,7 +69,7 @@ describe('ProductsService', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-  })
+  });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
@@ -83,11 +83,11 @@ describe('ProductsService', () => {
       expect(prisma.product.create).toHaveBeenCalledTimes(1);
       expect(prisma.product.create).toHaveBeenCalledWith({
         data: fakeProducts[0],
-      })
+      });
     });
   });
 
-  describe('findAll', () => { 
+  describe('findAll', () => {
     it('should return an array of products', async () => {
       const response = await service.findAll();
 
@@ -95,7 +95,7 @@ describe('ProductsService', () => {
       expect(prisma.product.findMany).toHaveBeenCalledTimes(1);
       expect(prisma.product.findMany).toHaveBeenCalledWith();
     });
-  })
+  });
 
   describe('findOne', () => {
     it('should return a single product', async () => {
@@ -104,8 +104,8 @@ describe('ProductsService', () => {
       expect(response).toEqual(fakeProducts[0]);
       expect(prisma.product.findUnique).toHaveBeenCalledTimes(1);
       expect(prisma.product.findUnique).toHaveBeenCalledWith({
-        where: { id: 1 }, 
-        include: { user: true }
+        where: { id: 1 },
+        include: { user: true },
       });
     });
 
@@ -118,7 +118,7 @@ describe('ProductsService', () => {
       expect(prisma.product.findUnique).toHaveBeenCalledTimes(1);
       expect(prisma.product.findUnique).toHaveBeenCalledWith({
         where: { id: 99 },
-        include: { user: true }
+        include: { user: true },
       });
     });
   });
@@ -131,7 +131,7 @@ describe('ProductsService', () => {
       expect(prisma.product.update).toHaveBeenCalledTimes(1);
       expect(prisma.product.update).toHaveBeenCalledWith({
         where: { id: 1 },
-        data: fakeProducts[0]
+        data: fakeProducts[0],
       });
     });
 
@@ -148,9 +148,9 @@ describe('ProductsService', () => {
 
       expect(prisma.product.update).toHaveBeenCalledWith({
         where: { id: 99 },
-        data: unexistingProduct
+        data: unexistingProduct,
       });
-    })
+    });
   });
 
   describe('deleteOne', () => {
@@ -172,8 +172,8 @@ describe('ProductsService', () => {
       }
 
       expect(prisma.product.delete).toHaveBeenCalledTimes(1);
-      expect(prisma.product.delete).toHaveBeenCalledWith({ 
-        where: { id: 99 } 
+      expect(prisma.product.delete).toHaveBeenCalledWith({
+        where: { id: 99 },
       });
     });
   });

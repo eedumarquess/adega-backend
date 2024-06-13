@@ -1,12 +1,12 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
-  ParseIntPipe
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ProductsService } from './products.service';
@@ -38,16 +38,14 @@ export class ProductsController {
   @Get(':id')
   @ApiOkResponse({ type: ProductEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
-    return new ProductEntity(
-      await this.productsService.findOne(id),
-    );
+    return new ProductEntity(await this.productsService.findOne(id));
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: ProductEntity })
   async update(
-    @Param('id', ParseIntPipe) id: number, 
-    @Body() updateProductDto: UpdateProductDto
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateProductDto: UpdateProductDto,
   ) {
     return new ProductEntity(
       await this.productsService.update(id, updateProductDto),
