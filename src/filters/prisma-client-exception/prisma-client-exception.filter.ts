@@ -10,20 +10,19 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
 
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const message = exception.message.replace(/\n/g, '');
 
     switch (exception.code) {
       case 'P2002': {
         const status = HttpStatus.CONFLICT;
         response.status(status).json({
           statusCode: status,
-          message: message
+          message: 'Você ja possui um registro com esse valor.',
         });
-      break;
-    }
-    default: 
-      super.catch(exception, host);
-      break;
+        break;
+      }
+      default:
+        super.catch(exception, host);
+        break;
     }
   }
 }
