@@ -16,6 +16,7 @@ async function bootstrap() {
     .setTitle('Adega API')
     .setDescription('The Adega API description')
     .setVersion('0.1')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
